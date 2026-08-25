@@ -1,0 +1,73 @@
+{
+  "program": "Hwimo_top030_proposed",
+  "selected_packets": 17851,
+  "received": 2518,
+  "missing": 15333,
+  "bad_parse": 24,
+  "bad_prediction": 0,
+  "full_matches": 2518,
+  "full_match_rate": 0.14105652344406475,
+  "pred_log": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/results/RecvPkt_Hwimo_top030_proposed.txt",
+  "csv": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/results/bmv2_top030_proposed_packet_validation.csv",
+  "first_missing": [
+    2518,
+    2519,
+    2520,
+    2521,
+    2522,
+    2523,
+    2524,
+    2525,
+    2526,
+    2527,
+    2528,
+    2529,
+    2530,
+    2531,
+    2532,
+    2533,
+    2534,
+    2535,
+    2536,
+    2537
+  ],
+  "first_bad_prediction": [],
+  "p4_vs_label_accuracy_on_received": {
+    "task1": {
+      "correct": 2517,
+      "total": 2518,
+      "accuracy": 0.9996028594122319
+    },
+    "task2": {
+      "correct": 2518,
+      "total": 2518,
+      "accuracy": 1.0
+    },
+    "task3": {
+      "correct": 2502,
+      "total": 2518,
+      "accuracy": 0.9936457505957109
+    },
+    "task4": {
+      "correct": 2507,
+      "total": 2518,
+      "accuracy": 0.9956314535345512
+    },
+    "task5": {
+      "correct": 2472,
+      "total": 2518,
+      "accuracy": 0.9817315329626688
+    },
+    "task6": {
+      "correct": 2480,
+      "total": 2518,
+      "accuracy": 0.9849086576648134
+    },
+    "task7": {
+      "correct": 2364,
+      "total": 2518,
+      "accuracy": 0.9388403494837172
+    }
+  },
+  "p4_vs_label_macro_accuracy_on_received": 0.9849086576648133
+}

@@ -1,0 +1,23 @@
+{
+  "received_count": 2265,
+  "expected_count": 17851,
+  "missing_count": 15586,
+  "task_accuracy": {
+    "task1": 100.0,
+    "task2": 100.0,
+    "task3": 99.38189845474614,
+    "task4": 99.55849889624724,
+    "task5": 98.05739514348785,
+    "task6": 98.49889624724062,
+    "task7": 93.5540838852097
+  },
+  "average_task_accuracy": 98.43582466099022,
+  "overall_accuracy": 98.43582466099022,
+  "program": "proposed",
+  "program_name": "Hwimo_top030_proposed",
+  "iface_out": "veth3",
+  "start_idx": 41651,
+  "n_test": 17851,
+  "recv_log": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/results/RecvPkt_Hwimo_top030_proposed.txt",
+  "prediction_csv": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/results/bmv2_top030_proposed_receiver_predictions.csv"
+}

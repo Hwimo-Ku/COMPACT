@@ -1,0 +1,69 @@
+{
+  "program": "proposed",
+  "selected_cluster_set": "{1} | {2} | {3} | {4} | {5,6,7}",
+  "selection_mode": "ResourcePool -> Field-AbsSHAP",
+  "lambda": 0.6,
+  "cluster_mean_weight": 0.5,
+  "singleton_policy": "include_one",
+  "resource_pool_size": 527,
+  "num_candidate_cluster_sets": 877,
+  "resource_gain_saved_features": 245.0,
+  "field_abs_shap_compat_gain": 0.9610628710586785,
+  "feature_k": 30,
+  "depth": 15,
+  "task_accuracy_percent": {
+    "1": 99.7086997927287,
+    "2": 99.80953447986107,
+    "3": 73.57010811719232,
+    "4": 71.62623942636267,
+    "5": 78.29253263122514,
+    "6": 79.32328721080052,
+    "7": 77.76595148731164
+  },
+  "overall_average_accuracy_percent": 82.87090759221174,
+  "clusters": [
+    {
+      "cluster": [
+        1
+      ],
+      "cluster_str": "{1}",
+      "model_dir": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/models/top_030/cluster_1",
+      "rule_count": 50
+    },
+    {
+      "cluster": [
+        2
+      ],
+      "cluster_str": "{2}",
+      "model_dir": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/models/top_030/cluster_2",
+      "rule_count": 56
+    },
+    {
+      "cluster": [
+        3
+      ],
+      "cluster_str": "{3}",
+      "model_dir": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/models/top_030/cluster_3",
+      "rule_count": 282
+    },
+    {
+      "cluster": [
+        4
+      ],
+      "cluster_str": "{4}",
+      "model_dir": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/models/top_030/cluster_4",
+      "rule_count": 380
+    },
+    {
+      "cluster": [
+        5,
+        6,
+        7
+      ],
+      "cluster_str": "{5,6,7}",
+      "model_dir": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/models/top_030/cluster_5_6_7",
+      "rule_count": 1468
+    }
+  ],
+  "commands_file": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/commands/Hwimo_top030_proposed_commands.txt"
+}

@@ -1,0 +1,9 @@
+{
+  "Hwimo_low030_mtl_all": {
+    "commands": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/commands/Hwimo_low030_mtl_all_commands.txt",
+    "p4": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+    "expected": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/expected/expected_Hwimo_low030_mtl_all.csv",
+    "macro_accuracy": 0.7439359139544004,
+    "total_entries": 875
+  }
+}

@@ -1,0 +1,4 @@
+test_ratio=0.300
+n_total=59502
+start_idx=41651
+n_test=17851

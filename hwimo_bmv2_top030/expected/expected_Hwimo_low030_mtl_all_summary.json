@@ -1,0 +1,42 @@
+{
+  "program": "Hwimo_low030_mtl_all",
+  "n_test": 17851,
+  "accuracy": {
+    "task1": {
+      "correct": 14652,
+      "total": 17851,
+      "accuracy": 0.8207943532575206
+    },
+    "task2": {
+      "correct": 17788,
+      "total": 17851,
+      "accuracy": 0.996470785950367
+    },
+    "task3": {
+      "correct": 10477,
+      "total": 17851,
+      "accuracy": 0.5869138983810431
+    },
+    "task4": {
+      "correct": 9280,
+      "total": 17851,
+      "accuracy": 0.5198588314380147
+    },
+    "task5": {
+      "correct": 14424,
+      "total": 17851,
+      "accuracy": 0.8080219595540866
+    },
+    "task6": {
+      "correct": 13510,
+      "total": 17851,
+      "accuracy": 0.7568203461990924
+    },
+    "task7": {
+      "correct": 12829,
+      "total": 17851,
+      "accuracy": 0.7186712229006779
+    }
+  },
+  "macro_accuracy": 0.7439359139544004
+}

@@ -1,0 +1,55 @@
+================================================================================
+BMv2 packet replay validation: Hwimo_low030_mtl_all
+================================================================================
+root:           /home/mncgpu4/COMPACT/hwimo_bmv2_top030
+iface in:       veth1
+iface out:      veth3
+input:          /home/mncgpu4/COMPACT/hwimo_bmv2_top030/data/test_input_153.txt
+expected:       /home/mncgpu4/COMPACT/hwimo_bmv2_top030/expected/expected_Hwimo_low030_mtl_all.csv
+test start_idx: 41651
+test n:         17851
+selected n:     17851
+batch size:     500
+send interval:  0.002
+retries:        3
+live print:     all
+live max:       0
+live every:     1000
+================================================================================
+[PKT 001000] sample_id=999 p4=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:WRONG t4:WRONG t5:OK t6:OK t7:OK]
+[PKT 002000] sample_id=1999 p4=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 003000] sample_id=2999 p4=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 004000] sample_id=3999 p4=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=2 t4=3 t5=2 t6=1 t7=2] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 005000] sample_id=4999 p4=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=2 t7=1] expected=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=2 t7=1] label=[t1=1 t2=0 t3=1 t4=2 t5=0 t6=0 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:WRONG t6:WRONG t7:OK]
+[PKT 006000] sample_id=5999 p4=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] expected=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] label=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 007000] sample_id=6999 p4=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 008000] sample_id=7999 p4=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 009000] sample_id=8999 p4=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=2 t7=1] expected=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=2 t7=1] label=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:WRONG t7:OK]
+[PKT 010000] sample_id=9999 p4=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] expected=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] label=[t1=1 t2=0 t3=3 t4=1 t5=1 t6=1 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:WRONG t4:WRONG t5:OK t6:OK t7:OK]
+[PKT 011000] sample_id=10999 p4=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] expected=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] label=[t1=1 t2=0 t3=1 t4=2 t5=1 t6=1 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:OK t5:OK t6:OK t7:OK]
+[PKT 012000] sample_id=11999 p4=[t1=1 t2=0 t3=0 t4=0 t5=0 t6=2 t7=1] expected=[t1=1 t2=0 t3=0 t4=0 t5=0 t6=2 t7=1] label=[t1=1 t2=0 t3=0 t4=4 t5=1 t6=0 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:OK t4:WRONG t5:WRONG t6:WRONG t7:OK]
+[PKT 013000] sample_id=12999 p4=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=0 t4=4 t5=1 t6=2 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:WRONG t4:WRONG t5:WRONG t6:WRONG t7:WRONG]
+[PKT 014000] sample_id=13999 p4=[t1=0 t2=0 t3=4 t4=6 t5=1 t6=2 t7=1] expected=[t1=0 t2=0 t3=4 t4=6 t5=1 t6=2 t7=1] label=[t1=1 t2=0 t3=0 t4=4 t5=2 t6=2 t7=0] p4==expected=YES p4_vs_label=[t1:WRONG t2:OK t3:WRONG t4:WRONG t5:WRONG t6:OK t7:WRONG]
+[PKT 015000] sample_id=14999 p4=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] expected=[t1=1 t2=0 t3=3 t4=1 t5=2 t6=1 t7=2] label=[t1=1 t2=0 t3=4 t4=6 t5=1 t6=2 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:WRONG t4:WRONG t5:WRONG t6:WRONG t7:WRONG]
+[PKT 016000] sample_id=15999 p4=[t1=0 t2=0 t3=4 t4=2 t5=2 t6=2 t7=1] expected=[t1=0 t2=0 t3=4 t4=2 t5=2 t6=2 t7=1] label=[t1=1 t2=0 t3=4 t4=6 t5=2 t6=2 t7=2] p4==expected=YES p4_vs_label=[t1:WRONG t2:OK t3:OK t4:WRONG t5:OK t6:OK t7:WRONG]
+[PKT 017000] sample_id=16999 p4=[t1=1 t2=0 t3=1 t4=2 t5=0 t6=0 t7=0] expected=[t1=1 t2=0 t3=1 t4=2 t5=0 t6=0 t7=0] label=[t1=1 t2=0 t3=4 t4=6 t5=1 t6=2 t7=1] p4==expected=YES p4_vs_label=[t1:OK t2:OK t3:WRONG t4:WRONG t5:WRONG t6:WRONG t7:WRONG]
+================================================================================
+RESULT
+================================================================================
+selected:        17851
+received:        17851
+missing:         0
+bad parse:       48
+bad prediction:  0
+full matches:    17851 / 17851 = 100.0000%
+csv:             /home/mncgpu4/COMPACT/hwimo_bmv2_top030/results/bmv2_low030_mtl_all_packet_validation.csv
+summary:         /home/mncgpu4/COMPACT/hwimo_bmv2_top030/results/bmv2_low030_mtl_all_packet_validation_summary.json
+P4-vs-label accuracy on received packets:
+  task1: 82.0794% (14652/17851)
+  task2: 99.6471% (17788/17851)
+  task3: 58.6914% (10477/17851)
+  task4: 51.9859% (9280/17851)
+  task5: 80.8022% (14424/17851)
+  task6: 75.6820% (13510/17851)
+  task7: 71.8671% (12829/17851)
+  macro: 74.3936%

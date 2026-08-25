@@ -1,0 +1,4177 @@
+{
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "fields" : [
+        ["metadata_t.key_1_2_3_4_5_6", 30, false],
+        ["_padding_0", 2, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "fields" : [
+        ["ingress_port", 9, false],
+        ["egress_spec", 9, false],
+        ["egress_port", 9, false],
+        ["instance_type", 32, false],
+        ["packet_length", 32, false],
+        ["enq_timestamp", 32, false],
+        ["enq_qdepth", 19, false],
+        ["deq_timedelta", 32, false],
+        ["deq_qdepth", 19, false],
+        ["ingress_global_timestamp", 48, false],
+        ["egress_global_timestamp", 48, false],
+        ["mcast_grp", 16, false],
+        ["egress_rid", 16, false],
+        ["checksum_error", 1, false],
+        ["parser_error", 32, false],
+        ["priority", 3, false],
+        ["_padding", 3, false]
+      ]
+    },
+    {
+      "name" : "ethernet_t",
+      "id" : 2,
+      "fields" : [
+        ["dstAddr", 48, false],
+        ["srcAddr", 48, false],
+        ["etherType", 16, false]
+      ]
+    },
+    {
+      "name" : "ipv4_t",
+      "id" : 3,
+      "fields" : [
+        ["version", 4, false],
+        ["ihl", 4, false],
+        ["diffserv", 8, false],
+        ["totalLen", 16, false],
+        ["identification", 16, false],
+        ["flags", 3, false],
+        ["fragOffset", 13, false],
+        ["ttl", 8, false],
+        ["protocol", 8, false],
+        ["hdrChecksum", 16, false],
+        ["srcAddr", 32, false],
+        ["dstAddr", 32, false]
+      ]
+    },
+    {
+      "name" : "hwimo_t",
+      "id" : 4,
+      "fields" : [
+        ["sample_id", 32, false]
+      ]
+    },
+    {
+      "name" : "features_t",
+      "id" : 5,
+      "fields" : [
+        ["bits", 153, false],
+        ["pad", 7, false]
+      ]
+    },
+    {
+      "name" : "prediction_t",
+      "id" : 6,
+      "fields" : [
+        ["pred_task1", 1, false],
+        ["pred_task2", 1, false],
+        ["pred_task3", 3, false],
+        ["pred_task4", 3, false],
+        ["pred_task5", 2, false],
+        ["pred_task6", 2, false],
+        ["pred_task7", 2, false],
+        ["pad", 2, false]
+      ]
+    },
+    {
+      "name" : "tcp_t",
+      "id" : 7,
+      "fields" : [
+        ["srcPort", 16, false],
+        ["dstPort", 16, false],
+        ["seqNo", 32, false],
+        ["ackNo", 32, false],
+        ["dataOffset", 4, false],
+        ["res", 3, false],
+        ["ecn", 3, false],
+        ["ctrl", 6, false],
+        ["window", 16, false],
+        ["checksum", 16, false],
+        ["urgentPtr", 16, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "scalars",
+      "id" : 0,
+      "header_type" : "scalars_0",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "header_type" : "standard_metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ethernet",
+      "id" : 2,
+      "header_type" : "ethernet_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ipv4",
+      "id" : 3,
+      "header_type" : "ipv4_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "hwimo",
+      "id" : 4,
+      "header_type" : "hwimo_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "features",
+      "id" : 5,
+      "header_type" : "features_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "prediction",
+      "id" : 6,
+      "header_type" : "prediction_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "tcp",
+      "id" : 7,
+      "header_type" : "tcp_t",
+      "metadata" : false,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [],
+  "errors" : [
+    ["NoError", 0],
+    ["PacketTooShort", 1],
+    ["NoMatch", 2],
+    ["StackOutOfBounds", 3],
+    ["HeaderTooShort", 4],
+    ["ParserTimeout", 5],
+    ["ParserInvalidArgument", 6]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ethernet"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0800",
+              "mask" : null,
+              "next_state" : "parse_ipv4"
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "etherType"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_ipv4",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ipv4"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0xc8",
+              "mask" : null,
+              "next_state" : "parse_hwimo"
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_hwimo",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "hwimo"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "features"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "prediction"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "tcp"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+        "line" : 164,
+        "column" : 8,
+        "source_fragment" : "MyDeparser"
+      },
+      "order" : ["ethernet", "ipv4", "hwimo", "features", "prediction", "tcp"],
+      "primitives" : []
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [],
+  "register_arrays" : [],
+  "calculations" : [],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "NoAction",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyIngress.set_pred_1_2_3_4_5_6_7",
+      "id" : 1,
+      "runtime_data" : [
+        {
+          "name" : "v1",
+          "bitwidth" : 1
+        },
+        {
+          "name" : "v2",
+          "bitwidth" : 1
+        },
+        {
+          "name" : "v3",
+          "bitwidth" : 3
+        },
+        {
+          "name" : "v4",
+          "bitwidth" : 3
+        },
+        {
+          "name" : "v5",
+          "bitwidth" : 2
+        },
+        {
+          "name" : "v6",
+          "bitwidth" : 2
+        },
+        {
+          "name" : "v7",
+          "bitwidth" : 2
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task1"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 96,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task1 = v1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task2"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 97,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task2 = v2"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task3"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 2
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 98,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task3 = v3"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task4"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 3
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 99,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task4 = v4"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task5"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 4
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 100,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task5 = v5"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task6"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 5
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 101,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task6 = v6"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["prediction", "pred_task7"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 6
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 102,
+            "column" : 8,
+            "source_fragment" : "hdr.prediction.pred_task7 = v7"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "hwimo_low030_mtl_all_bmv2l120",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 120,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7 = 0"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1fffffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x98"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1d"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x20000000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 121,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[29:29] = hdr.features.bits[152:152]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2fffffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x97"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1c"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x10000000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 122,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[28:28] = hdr.features.bits[151:151]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x37ffffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x96"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1b"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x08000000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 123,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[27:27] = hdr.features.bits[150:150]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3bffffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x95"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1a"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x04000000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 124,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[26:26] = hdr.features.bits[149:149]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3dffffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x94"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x19"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x02000000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 125,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[25:25] = hdr.features.bits[148:148]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3effffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x92"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x18"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01000000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 126,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[24:24] = hdr.features.bits[146:146]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3f7fffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x90"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x17"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00800000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 127,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[23:23] = hdr.features.bits[144:144]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fbfffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x8e"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x16"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00400000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 128,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[22:22] = hdr.features.bits[142:142]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fdfffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x8b"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x15"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00200000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 129,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[21:21] = hdr.features.bits[139:139]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fefffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x8a"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x14"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00100000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 130,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[20:20] = hdr.features.bits[138:138]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ff7ffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x89"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x13"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00080000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 131,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[19:19] = hdr.features.bits[137:137]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffbffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x88"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x12"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00040000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 132,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[18:18] = hdr.features.bits[136:136]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffdffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x87"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x11"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00020000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 133,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[17:17] = hdr.features.bits[135:135]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffeffff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x86"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x10"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00010000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 134,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[16:16] = hdr.features.bits[134:134]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fff7fff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x84"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0xf"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00008000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 135,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[15:15] = hdr.features.bits[132:132]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffbfff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x83"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0xe"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00004000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 136,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[14:14] = hdr.features.bits[131:131]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffdfff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x7e"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0xd"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00002000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 137,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[13:13] = hdr.features.bits[126:126]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffefff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x60"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0xc"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00001000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 138,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[12:12] = hdr.features.bits[96:96]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffff7ff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x20"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0xb"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000800"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 139,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[11:11] = hdr.features.bits[32:32]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffbff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x1f"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0xa"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000400"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 140,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[10:10] = hdr.features.bits[31:31]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffdff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x1d"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x9"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000200"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[9:9] = hdr.features.bits[29:29]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffeff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x1c"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x8"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000100"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[8:8] = hdr.features.bits[28:28]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffff7f"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x1b"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x7"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000080"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[7:7] = hdr.features.bits[27:27]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffffbf"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x15"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x6"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000040"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[6:6] = hdr.features.bits[21:21]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffffdf"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x14"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x5"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000020"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 145,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[5:5] = hdr.features.bits[20:20]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3fffffef"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x13"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x4"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000010"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 146,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[4:4] = hdr.features.bits[19:19]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffff7"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x12"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x3"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000008"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 147,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[3:3] = hdr.features.bits[18:18]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffffb"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0x10"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x2"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000004"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 148,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[2:2] = hdr.features.bits[16:16]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffffd"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "&",
+                                      "left" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "&",
+                                          "left" : {
+                                            "type" : "expression",
+                                            "value" : {
+                                              "op" : ">>",
+                                              "left" : {
+                                                "type" : "field",
+                                                "value" : ["features", "bits"]
+                                              },
+                                              "right" : {
+                                                "type" : "hexstr",
+                                                "value" : "0xd"
+                                              }
+                                            }
+                                          },
+                                          "right" : {
+                                            "type" : "hexstr",
+                                            "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                          }
+                                        }
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x3fffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000002"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 149,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[1:1] = hdr.features.bits[13:13]"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata_t.key_1_2_3_4_5_6"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3ffffffe"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "&",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : ">>",
+                                      "left" : {
+                                        "type" : "field",
+                                        "value" : ["features", "bits"]
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x9"
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x01ffffffffffffffffffffffffffffffffffffff"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x01"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x3fffffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000001"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 150,
+            "column" : 8,
+            "source_fragment" : "meta.key_1_2_3_4_5_6_7[0:0] = hdr.features.bits[9:9]"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "hwimo_low030_mtl_all_bmv2l154",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0001"
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 154,
+            "column" : 12,
+            "source_fragment" : "standard_metadata.egress_spec = 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "hwimo_low030_mtl_all_bmv2l156",
+      "id" : 4,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 156,
+            "column" : 12,
+            "source_fragment" : "standard_metadata.egress_spec = 0"
+          }
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+        "line" : 93,
+        "column" : 8,
+        "source_fragment" : "MyIngress"
+      },
+      "init_table" : "node_2",
+      "tables" : [
+        {
+          "name" : "tbl_hwimo_low030_mtl_all_bmv2l120",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 120,
+            "column" : 31,
+            "source_fragment" : "= 0; ..."
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [2],
+          "actions" : ["hwimo_low030_mtl_all_bmv2l120"],
+          "base_default_next" : "MyIngress.tb_hwimo_tree_1_2_3_4_5_6_7",
+          "next_tables" : {
+            "hwimo_low030_mtl_all_bmv2l120" : "MyIngress.tb_hwimo_tree_1_2_3_4_5_6_7"
+          },
+          "default_entry" : {
+            "action_id" : 2,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "MyIngress.tb_hwimo_tree_1_2_3_4_5_6_7",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 106,
+            "column" : 10,
+            "source_fragment" : "tb_hwimo_tree_1_2_3_4_5_6_7"
+          },
+          "key" : [
+            {
+              "match_type" : "ternary",
+              "name" : "meta.key_1_2_3_4_5_6_7",
+              "target" : ["scalars", "metadata_t.key_1_2_3_4_5_6"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "ternary",
+          "type" : "simple",
+          "max_size" : 875,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [1, 0],
+          "actions" : ["MyIngress.set_pred_1_2_3_4_5_6_7", "NoAction"],
+          "base_default_next" : "node_5",
+          "next_tables" : {
+            "MyIngress.set_pred_1_2_3_4_5_6_7" : "node_5",
+            "NoAction" : "node_5"
+          },
+          "default_entry" : {
+            "action_id" : 0,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "tbl_hwimo_low030_mtl_all_bmv2l154",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 154,
+            "column" : 42,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [3],
+          "actions" : ["hwimo_low030_mtl_all_bmv2l154"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "hwimo_low030_mtl_all_bmv2l154" : null
+          },
+          "default_entry" : {
+            "action_id" : 3,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_hwimo_low030_mtl_all_bmv2l156",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 156,
+            "column" : 42,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [4],
+          "actions" : ["hwimo_low030_mtl_all_bmv2l156"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "hwimo_low030_mtl_all_bmv2l156" : null
+          },
+          "default_entry" : {
+            "action_id" : 4,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_2",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 119,
+            "column" : 12,
+            "source_fragment" : "hdr.features.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["features", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "tbl_hwimo_low030_mtl_all_bmv2l120",
+          "false_next" : "node_5"
+        },
+        {
+          "name" : "node_5",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+            "line" : 153,
+            "column" : 12,
+            "source_fragment" : "standard_metadata.ingress_port == 0"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["standard_metadata", "ingress_port"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x0000"
+              }
+            }
+          },
+          "true_next" : "tbl_hwimo_low030_mtl_all_bmv2l154",
+          "false_next" : "tbl_hwimo_low030_mtl_all_bmv2l156"
+        }
+      ]
+    },
+    {
+      "name" : "egress",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+        "line" : 161,
+        "column" : 8,
+        "source_fragment" : "MyEgress"
+      },
+      "init_table" : null,
+      "tables" : [],
+      "action_profiles" : [],
+      "conditionals" : []
+    }
+  ],
+  "checksums" : [],
+  "force_arith" : [],
+  "extern_instances" : [],
+  "field_aliases" : [
+    [
+      "queueing_metadata.enq_timestamp",
+      ["standard_metadata", "enq_timestamp"]
+    ],
+    [
+      "queueing_metadata.enq_qdepth",
+      ["standard_metadata", "enq_qdepth"]
+    ],
+    [
+      "queueing_metadata.deq_timedelta",
+      ["standard_metadata", "deq_timedelta"]
+    ],
+    [
+      "queueing_metadata.deq_qdepth",
+      ["standard_metadata", "deq_qdepth"]
+    ],
+    [
+      "intrinsic_metadata.ingress_global_timestamp",
+      ["standard_metadata", "ingress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.egress_global_timestamp",
+      ["standard_metadata", "egress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.mcast_grp",
+      ["standard_metadata", "mcast_grp"]
+    ],
+    [
+      "intrinsic_metadata.egress_rid",
+      ["standard_metadata", "egress_rid"]
+    ],
+    [
+      "intrinsic_metadata.priority",
+      ["standard_metadata", "priority"]
+    ]
+  ],
+  "program" : "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/p4/hwimo_low030_mtl_all_bmv2.p4",
+  "__meta__" : {
+    "version" : [2, 23],
+    "compiler" : "https://github.com/p4lang/p4c"
+  }
+}

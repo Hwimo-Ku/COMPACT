@@ -1,0 +1,42 @@
+{
+  "program": "Hwimo_top030_proposed",
+  "n_test": 17851,
+  "accuracy": {
+    "task1": {
+      "correct": 17799,
+      "total": 17851,
+      "accuracy": 0.9970869979272869
+    },
+    "task2": {
+      "correct": 17817,
+      "total": 17851,
+      "accuracy": 0.9980953447986107
+    },
+    "task3": {
+      "correct": 13133,
+      "total": 17851,
+      "accuracy": 0.7357010811719231
+    },
+    "task4": {
+      "correct": 12786,
+      "total": 17851,
+      "accuracy": 0.7162623942636267
+    },
+    "task5": {
+      "correct": 13976,
+      "total": 17851,
+      "accuracy": 0.7829253263122514
+    },
+    "task6": {
+      "correct": 14160,
+      "total": 17851,
+      "accuracy": 0.7932328721080052
+    },
+    "task7": {
+      "correct": 13882,
+      "total": 17851,
+      "accuracy": 0.7776595148731164
+    }
+  },
+  "macro_accuracy": 0.8287090759221172
+}

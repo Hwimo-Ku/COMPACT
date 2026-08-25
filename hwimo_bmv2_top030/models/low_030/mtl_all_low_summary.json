@@ -1,0 +1,29 @@
+{
+  "program": "mtl_all_low",
+  "cluster": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "cluster_str": "{1,2,3,4,5,6,7}",
+  "feature_selection": "low",
+  "feature_k": 30,
+  "depth": 15,
+  "task_accuracy_percent": {
+    "1": 82.07943532575206,
+    "2": 99.6470785950367,
+    "3": 58.691389838104314,
+    "4": 51.98588314380147,
+    "5": 80.80219595540866,
+    "6": 75.68203461990925,
+    "7": 71.86712229006778
+  },
+  "overall_average_accuracy_percent": 74.39359139544003,
+  "model_dir": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/models/low_030/cluster_1_2_3_4_5_6_7",
+  "rule_count": 875,
+  "commands_file": "/home/mncgpu4/COMPACT/hwimo_bmv2_top030/commands/Hwimo_low030_mtl_all_commands.txt"
+}
